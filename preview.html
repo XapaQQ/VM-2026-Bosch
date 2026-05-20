@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VM 2026 Leaderboard</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: black;
+      color: white;
+    }
+
+    .flag {
+      font-size: 22px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>VM 2026 – Poängtabell</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Placering</th>
+      <th>Land</th>
+      <th>Namn</th>
+      <th>Poäng</th>
+    </tr>
+  </thead>
+  <tbody id="table"></tbody>
+</table>
+
+<button onclick="loadData()">Ladda om data</button>
+
+<script>
+
+// 🌍 enkel land → flagga mapping
+function getFlag(country) {
+  const flags = {
+    Sweden: "🇸🇪",
+    France: "🇫🇷",
+    Germany: "🇩🇪",
+    Spain: "🇪🇸",
+    England: "🏴",
+    Brazil: "🇧🇷",
+    Argentina: "🇦🇷",
+    USA: "🇺🇸",
+    Japan: "🇯🇵",
+    Mexico: "🇲🇽"
+  };
+
+  return flags[country] || "🏳️";
+}
+
+async function loadData() {
+  const res = await fetch("data.csv");
+  const text = await res.text();
+
+  const rows = text.trim().split("\n").slice(1);
+
+  let data = rows.map(r => {
+    const [country, name, points] = r.split(",");
+
+    return {
+      country: country.trim(),
+      name: name.trim(),
+      points: Number(points)
+    };
+  });
+
+  // sortera på poäng
+  data.sort((a, b) => b.points - a.points);
+
+  const tbody = document.getElementById("table");
+  tbody.innerHTML = "";
+
+  data.forEach((p, i) => {
+    tbody.innerHTML += `
+      <tr>
+        <td>${i + 1}</td>
+        <td class="flag">${getFlag(p.country)}</td>
+        <td>${p.name}</td>
+        <td>${p.points}</td>
+      </tr>
+    `;
+  });
+}
+
+loadData();
+</script>
+
+</body>
+</html>
