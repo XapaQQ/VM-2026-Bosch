@@ -71,16 +71,12 @@
 // 🌍 enkel land → flagga mapping
 function getFlag(country) {
   const flags = {
-    Sweden: "🇸🇪",
-    France: "🇫🇷",
-    Germany: "🇩🇪",
-    Spain: "🇪🇸",
-    England: "🏴",
-    Brazil: "🇧🇷",
-    Argentina: "🇦🇷",
-    USA: "🇺🇸",
-    Japan: "🇯🇵",
-    Mexico: "🇲🇽"
+  Sweden: "🇸🇪",
+  Germany: "🇩🇪",
+  USA: "🇺🇸",
+  Denmark: "🇩🇰",
+  Ukraine: "🇺🇦",
+  Austria: "🇦🇹"
   };
 
   return flags[country] || "🏳️";
@@ -93,7 +89,7 @@ async function loadData() {
   const rows = text.trim().split("\n").slice(1);
 
   let data = rows.map(r => {
-    const [country, name, points] = r.split(",");
+    const [country, name, points] = r.split(";");
 
     return {
       country: country.trim(),
