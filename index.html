@@ -21,11 +21,21 @@
     th {
       background: #f2f2f2;
     }
+
+    #statusBox {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      background: #f7f7f7;
+      width: fit-content;
+    }
   </style>
 </head>
 <body>
 
 <h1>VM 2026 Tabell</h1>
+
+<div id="statusBox">⏳ Laddar senaste uppdatering...</div>
 
 <table>
   <thead>
@@ -39,6 +49,7 @@
 </table>
 
 <script>
+
 const flagMap = {
   Sweden: "🇸🇪",
   Germany: "🇩🇪",
@@ -48,6 +59,10 @@ const flagMap = {
   "United States": "🇺🇸",
   Denmark: "🇩🇰"
 };
+
+// ─────────────────────────────
+// LÄS CSV OCH BYGG TABELL
+// ─────────────────────────────
 
 fetch("data.csv")
   .then(res => res.text())
@@ -59,7 +74,7 @@ fetch("data.csv")
       .slice(1);
 
     const data = rows
-      .map(r => r.split(";").map(x => x.trim()))
+      .map(r => r.split(/[;,]/).map(x => x.trim()))
       .filter(r =>
         r.length === 3 &&
         !r[0].includes("#N/A") &&
@@ -92,6 +107,34 @@ fetch("data.csv")
   .catch(err => {
     console.error("Kunde inte läsa CSV:", err);
   });
+
+
+// ─────────────────────────────
+// STATUSBOX (SENAST UPPDATERAD)
+// ─────────────────────────────
+
+fetch("https://api.github.com/repos/DITT-USER/DITT-REPO/commits?path=data.csv")
+  .then(res => res.json())
+  .then(data => {
+
+    const date = new Date(data[0].commit.committer.date);
+
+    const formatted = date.toLocaleString("sv-SE", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+
+    document.getElementById("statusBox").innerHTML =
+      "🕒 Senast uppdaterad: <b>" + formatted + "</b>";
+  })
+  .catch(() => {
+    document.getElementById("statusBox").innerHTML =
+      "⚠️ Kunde inte hämta uppdatering";
+  });
+
 </script>
 
 </body>
