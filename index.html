@@ -16,6 +16,7 @@
       margin-bottom: 10px;
     }
 
+    /* TABELL - VIKTIG FIX */
     table {
       border-collapse: collapse;
       width: 75%;
@@ -29,6 +30,7 @@
       text-align: left;
       overflow: hidden;
       white-space: nowrap;
+      text-overflow: ellipsis;
     }
 
     /* ZEBRA */
@@ -47,31 +49,35 @@
       text-align: center;
     }
 
-    /* NAMN = BREDARE */
+    /* NAMN = ENDA FLEX */
     .nameCol {
-      width: 85%;
+      width: auto;
     }
 
-    /* SMÅ KOLUMNER */
+    /* 🔥 HÅRDLÅSTA PIXELKOLUMNER */
+
     .todayCol {
-      width:15px;
+      width: 35px;
+      min-width: 35px;
+      max-width: 35px;
       text-align: center;
       font-size: 12px;
-      padding: 6px;
     }
 
     .placeCol {
-      width: 15px;
+      width: 35px;
+      min-width: 35px;
+      max-width: 35px;
       text-align: center;
       font-size: 12px;
-      padding: 6px;
     }
 
     .pointsCol {
-      width: 15px;
+      width: 45px;
+      min-width: 45px;
+      max-width: 45px;
       text-align: center;
       font-size: 12px;
-      padding: 6px;
     }
 
     /* STATUSBOX */
@@ -152,7 +158,11 @@ fetch("data.csv")
 
     const data = rows
       .map(r => r.split(/[;,]/).map(x => x.trim()))
-      .filter(r => r.length >= 5 && r[0] !== "")
+      .filter(r =>
+        r.length >= 5 &&
+        r[0] !== "" &&
+        !r[0].includes("#N/A")
+      )
       .map(cols => ({
         land: cols[0],
         namn: cols[1],
