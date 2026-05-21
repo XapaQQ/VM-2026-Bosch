@@ -20,12 +20,16 @@
       border-collapse: collapse;
       width: 75%;
       background: white;
+      table-layout: fixed; /* 🔥 VIKTIG FIX */
     }
 
     th, td {
       border: 1px solid #ddd;
       padding: 10px;
       text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     th {
@@ -45,24 +49,24 @@
       color: #f2f2f2;
     }
 
-    /* KOLUMNBREDDER */
+    /* KOLUMNBREDDER (FIXAD) */
 
     .nameCol {
-      width: 30%;
+      width: 45%;
     }
 
     .todayCol {
-      width: 12%;
+      width: 10%;
       text-align: center;
     }
 
     .placeCol {
-      width: 12%;
+      width: 10%;
       text-align: center;
     }
 
     .pointsCol {
-      width: 12%;
+      width: 10%;
       text-align: center;
     }
 
@@ -183,7 +187,6 @@ fetch("data.csv")
         placering: Number(cols[4])
       }));
 
-    // Sortera högst poäng först
     data.sort((a, b) => b.poäng - a.poäng);
 
     const tbody = document.getElementById("table");
@@ -194,7 +197,6 @@ fetch("data.csv")
       const flag = flagMap[r.land] || "🏳️";
 
       let medalClass = "";
-
       if (index === 0) medalClass = "gold";
       else if (index === 1) medalClass = "silver";
       else if (index === 2) medalClass = "bronze";
@@ -210,12 +212,10 @@ fetch("data.csv")
       if (r.placering > 0) {
         placementIndicator = "▲";
         placementClass = "up";
-      }
-      else if (r.placering < 0) {
+      } else if (r.placering < 0) {
         placementIndicator = "▼";
         placementClass = "down";
-      }
-      else {
+      } else {
         placementIndicator = "◆";
         placementClass = "same";
       }
@@ -223,22 +223,12 @@ fetch("data.csv")
       tbody.innerHTML += `
         <tr class="${medalClass}">
           <td class="countryCell">${flag}</td>
-
-          <td class="nameCol">
-            ${medal} ${r.namn}
-          </td>
-
-          <td class="todayCol">
-            ${r.dagenspoäng}
-          </td>
-
+          <td class="nameCol">${medal} ${r.namn}</td>
+          <td class="todayCol">${r.dagenspoäng}</td>
           <td class="placeCol ${placementClass}">
             ${placementIndicator} ${r.placering}
           </td>
-
-          <td class="pointsCol">
-            ${r.poäng}
-          </td>
+          <td class="pointsCol">${r.poäng}</td>
         </tr>
       `;
     });
@@ -272,10 +262,8 @@ fetch("https://api.github.com/repos/XapaQQ/VM-2026-Bosch/commits")
 
   })
   .catch(() => {
-
     document.getElementById("statusBox").innerHTML =
       "⚠️ Kunde inte hämta uppdatering";
-
   });
 
 </script>
