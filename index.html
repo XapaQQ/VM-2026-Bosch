@@ -40,7 +40,7 @@ h1 {
   align-items: center;
 }
 
-/* BOX MODEL FIX */
+/* CELLS */
 .header > div,
 .row > div {
   box-sizing: border-box;
@@ -51,19 +51,10 @@ h1 {
   text-align: center;
 }
 
-/* NAMN VÄNSTER */
+/* namn vänster */
 .header > div:nth-child(2),
 .row > div:nth-child(2) {
   text-align: left;
-}
-
-/* 🔥 HEADER WRAP FIX (DIN NYA REQUEST) */
-.header > div {
-  white-space: normal;     /* tillåter radbrytning */
-  overflow: visible;       /* ingen klippning */
-  text-overflow: unset;    /* stänger ellipsis */
-  line-height: 1.1;
-  word-break: break-word;
 }
 
 /* HEADER */
@@ -96,32 +87,36 @@ h1 {
   padding-left: 6px;
 }
 
-/* NAMN */
+/* TEXT */
 .name {
   font-size: 14px;
 }
 
-/* DATA */
 .today, .place, .points {
   font-size: 14px;
   font-weight: 500;
 }
 
-/* TOP 3 */
-.gold {
-  border-left: 5px solid gold;
-  font-weight: bold;
+/* 🔥 TOP 3 FIX (NO LAYOUT SHIFT) */
+.gold, .silver, .bronze {
+  position: relative;
 }
 
-.silver {
-  border-left: 5px solid silver;
-  font-weight: bold;
+/* medal stripes as overlay (NO border-left) */
+.gold::before,
+.silver::before,
+.bronze::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
 }
 
-.bronze {
-  border-left: 5px solid #cd7f32;
-  font-weight: bold;
-}
+.gold::before { background: gold; }
+.silver::before { background: silver; }
+.bronze::before { background: #cd7f32; }
 
 /* PLACERING */
 .up { color: green; font-weight: bold; }
@@ -137,7 +132,6 @@ h1 {
 
 <div id="statusBox">⏳ Laddar senaste uppdatering...</div>
 
-<!-- HEADER -->
 <div class="header">
   <div>Land</div>
   <div>Namn</div>
@@ -146,7 +140,6 @@ h1 {
   <div>Total Poäng</div>
 </div>
 
-<!-- DATA -->
 <div id="grid"></div>
 
 <script>
