@@ -27,20 +27,20 @@ h1 {
   font-size: 14px;
 }
 
-/* 🔥 FIX: fast grid som aldrig drifter */
+/* 🔥 1.25x BREDARE CONTAINER */
 #grid, .header {
-  width: 600px;
+  width: 750px;
   max-width: 95vw;
 }
 
-/* 🔥 IDENTISK GRID FÖR HEADER + ROW */
+/* 🔥 IDENTISK GRID FÖR HEADER + ROW (1.25x skalat) */
 .header, .row {
   display: grid;
-  grid-template-columns: 70px 220px 80px 80px 90px;
+  grid-template-columns: 88px 275px 100px 100px 112px;
   align-items: center;
 }
 
-/* 🔥 CRITICAL: samma boxmodell överallt */
+/* BOX FIX (pixel-stabilitet) */
 .header > div,
 .row > div {
   box-sizing: border-box;
@@ -48,11 +48,6 @@ h1 {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-/* ALIGN */
-.header > div,
-.row > div {
   text-align: center;
 }
 
@@ -88,7 +83,7 @@ h1 {
 /* FLAGGOR */
 .flag {
   text-align: left;
-  font-size: 26px;
+  font-size: 28px; /* lite större flaggor */
   padding-left: 6px;
 }
 
