@@ -16,6 +16,7 @@
       margin-bottom: 10px;
     }
 
+    /* 🔒 VIKTIGT: LÅSER TABELLEN */
     table {
       border-collapse: collapse;
       width: 75%;
@@ -26,7 +27,6 @@
     th, td {
       border: 1px solid #ddd;
       padding: 6px;
-      text-align: left;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -41,45 +41,45 @@
       background: #eaf2ff;
     }
 
-    /* LAND */
+    /* LAND (fast liten) */
     table th:first-child,
     table td:first-child {
-      width: 60px;
+      width: 50px;
       text-align: center;
     }
 
-    /* NAMN = FLEX */
+    /* NAMN (ENDA FLEXKOLUMN) */
     .nameCol {
       width: auto;
     }
 
-    /* 🔥 ULTRA KOMPAKTA KOLUMNER */
+    /* 🔥 ULTRA-KOMPAKTA KOLUMNER */
 
     .todayCol {
-      width: 28px;
-      min-width: 28px;
-      max-width: 28px;
+      width: 16px;
+      min-width: 16px;
+      max-width: 16px;
       text-align: center;
-      font-size: 11px;
-      padding: 4px;
+      font-size: 10px;
+      padding: 2px;
     }
 
     .placeCol {
-      width: 28px;
-      min-width: 28px;
-      max-width: 28px;
+      width: 16px;
+      min-width: 16px;
+      max-width: 16px;
       text-align: center;
-      font-size: 11px;
-      padding: 4px;
+      font-size: 10px;
+      padding: 2px;
     }
 
     .pointsCol {
-      width: 35px;
-      min-width: 35px;
-      max-width: 35px;
+      width: 24px;
+      min-width: 24px;
+      max-width: 24px;
       text-align: center;
-      font-size: 11px;
-      padding: 4px;
+      font-size: 10px;
+      padding: 2px;
     }
 
     /* STATUSBOX */
@@ -97,7 +97,6 @@
       background: linear-gradient(to right, #fff7cc, #fff2a8);
       border-left: 8px solid gold;
       font-weight: 900;
-      box-shadow: 0 0 12px rgba(255,215,0,0.5);
     }
 
     .silver {
@@ -117,6 +116,11 @@
     .down { color: red; font-weight: bold; }
     .same { color: goldenrod; font-weight: bold; }
 
+    /* tight text */
+    th, td {
+      line-height: 1;
+    }
+
   </style>
 </head>
 
@@ -131,9 +135,9 @@
     <tr>
       <th>Land</th>
       <th>Namn</th>
-      <th>Dagens Poäng</th>
-      <th>Placering</th>
-      <th>Poäng</th>
+      <th>D</th>
+      <th>P</th>
+      <th>Po</th>
     </tr>
   </thead>
 
@@ -160,11 +164,7 @@ fetch("data.csv")
 
     const data = rows
       .map(r => r.split(/[;,]/).map(x => x.trim()))
-      .filter(r =>
-        r.length >= 5 &&
-        r[0] !== "" &&
-        !r[0].includes("#N/A")
-      )
+      .filter(r => r.length >= 5 && r[0] !== "")
       .map(cols => ({
         land: cols[0],
         namn: cols[1],
@@ -182,10 +182,10 @@ fetch("data.csv")
 
       const flag = flagMap[r.land] || "🏳️";
 
-      let medal = "";
-      if (index === 0) medal = "🥇";
-      else if (index === 1) medal = "🥈";
-      else if (index === 2) medal = "🥉";
+      const medal =
+        index === 0 ? "🥇" :
+        index === 1 ? "🥈" :
+        index === 2 ? "🥉" : "";
 
       let placementIcon = "";
       let placementClass = "";
@@ -209,22 +209,10 @@ fetch("data.csv")
       tbody.innerHTML += `
         <tr class="${rowClass}">
           <td>${flag}</td>
-
-          <td class="nameCol">
-            ${medal} ${r.namn}
-          </td>
-
-          <td class="todayCol">
-            ${r.dagenspoäng}
-          </td>
-
-          <td class="placeCol ${placementClass}">
-            ${placementIcon} ${r.placering}
-          </td>
-
-          <td class="pointsCol">
-            ${r.poäng}
-          </td>
+          <td class="nameCol">${medal} ${r.namn}</td>
+          <td class="todayCol">${r.dagenspoäng}</td>
+          <td class="placeCol ${placementClass}">${placementIcon}</td>
+          <td class="pointsCol">${r.poäng}</td>
         </tr>
       `;
     });
