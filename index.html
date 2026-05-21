@@ -12,10 +12,8 @@ body {
   background: #fafafa;
 }
 
-/* CONTAINER (hindrar overflow) */
-#grid {
-  width: 100%;
-  max-width: 600px;
+h1 {
+  margin-bottom: 10px;
 }
 
 /* STATUS */
@@ -29,12 +27,32 @@ body {
   font-size: 14px;
 }
 
+/* 🔥 CONTAINER */
+#grid {
+  width: 100%;
+  max-width: 600px;
+}
+
 /* 🔥 IDENTISK GRID FÖR HEADER + ROW */
 .header, .row {
   display: grid;
   grid-template-columns: 70px 1fr 80px 80px 90px;
   align-items: center;
+  line-height: 1;
+}
+
+/* 🔥 CRITICAL FIX: exakt samma box-modell överallt */
+.header > div,
+.row > div {
   box-sizing: border-box;
+  padding: 6px;
+  text-align: center;
+}
+
+/* vänsterjustera namnkolumnen */
+.header > div:nth-child(2),
+.row > div:nth-child(2) {
+  text-align: left;
 }
 
 /* HEADER */
@@ -42,26 +60,12 @@ body {
   font-weight: bold;
   background: #f2f2f2;
   border: 1px solid #ddd;
-  padding: 8px;
-}
-
-/* HEADER ALIGNMENT */
-.header div {
-  text-align: center;
-  font-size: 13px;
-}
-
-/* NAMN I HEADER VÄNSTER */
-.header div:nth-child(2) {
-  text-align: left;
-  padding-left: 6px;
 }
 
 /* ROW */
 .row {
   border: 1px solid #ddd;
   background: white;
-  padding: 6px;
 }
 
 /* ZEBRA */
@@ -74,30 +78,21 @@ body {
   background: #eaf2ff;
 }
 
-/* CELLS */
-.cell {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
 /* FLAGGOR */
 .flag {
   text-align: left;
   font-size: 26px;
-  padding-left: 6px;
 }
 
 /* NAMN */
 .name {
-  padding-left: 6px;
   font-size: 14px;
 }
 
-/* DATA KOLUMNER */
+/* DATA */
 .today, .place, .points {
-  text-align: center;
   font-size: 14px;
+  font-weight: 500;
 }
 
 /* TOP 3 */
@@ -130,6 +125,7 @@ body {
 
 <div id="statusBox">⏳ Laddar senaste uppdatering...</div>
 
+<!-- HEADER -->
 <div class="header">
   <div>Land</div>
   <div>Namn</div>
@@ -138,6 +134,7 @@ body {
   <div>Total Poäng</div>
 </div>
 
+<!-- DATA -->
 <div id="grid"></div>
 
 <script>
@@ -177,11 +174,11 @@ function render(data) {
     row.className = cls;
 
     row.innerHTML = `
-      <div class="cell flag">${flagMap[r.land] || ""}</div>
-      <div class="cell name">${r.namn}</div>
-      <div class="cell today">${r.dagenspoäng}</div>
-      <div class="cell place ${placeClass}">${placeIcon} ${r.placering}</div>
-      <div class="cell points">${r.poäng}</div>
+      <div class="flag">${flagMap[r.land] || ""}</div>
+      <div class="name">${r.namn}</div>
+      <div class="today">${r.dagenspoäng}</div>
+      <div class="place ${placeClass}">${placeIcon} ${r.placering}</div>
+      <div class="points">${r.poäng}</div>
     `;
 
     grid.appendChild(row);
