@@ -20,7 +20,7 @@
       border-collapse: collapse;
       width: 75%;
       background: white;
-      table-layout: fixed; /* viktig */
+      table-layout: fixed; /* VIKTIG */
     }
 
     th, td {
@@ -29,40 +29,47 @@
       text-align: left;
       overflow: hidden;
       text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ZEBRA ROWS */
+    tbody tr:nth-child(even) {
+      background: #f6f6f6;
+    }
+
+    tbody tr:nth-child(odd) {
+      background: #ffffff;
+    }
+
+    tbody tr:hover {
+      background: #eaf2ff;
     }
 
     /* LAND */
     table th:first-child,
     table td:first-child {
-      width: 55px;
+      width: 60px;
       text-align: center;
     }
 
-    .countryCell {
-      font-size: 28px;
-    }
-
-    /* NAMN = DYNAMISK */
+    /* NAMN = ENDA FLEXKOLUMN */
     .nameCol {
       width: auto;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
-    /* ÖVRIGA FASTA KOLUMNER */
+    /* SMÅ FASTA KOLUMNER */
     .todayCol {
-      width: 110px;
+      width: 80px;
       text-align: center;
     }
 
     .placeCol {
-      width: 110px;
+      width: 80px;
       text-align: center;
     }
 
     .pointsCol {
-      width: 110px;
+      width: 80px;
       text-align: center;
     }
 
@@ -81,21 +88,18 @@
       background: linear-gradient(to right, #fff7cc, #fff2a8);
       border-left: 8px solid gold;
       font-weight: bold;
-      box-shadow: 0 0 8px rgba(255,215,0,0.4);
     }
 
     .silver {
       background: linear-gradient(to right, #f5f5f5, #e5e5e5);
       border-left: 8px solid silver;
       font-weight: bold;
-      box-shadow: 0 0 8px rgba(180,180,180,0.4);
     }
 
     .bronze {
       background: linear-gradient(to right, #f7dfcf, #edc2a7);
       border-left: 8px solid #cd7f32;
       font-weight: bold;
-      box-shadow: 0 0 8px rgba(205,127,50,0.4);
     }
 
     /* PLACERING */
@@ -189,33 +193,28 @@ fetch("data.csv")
 
       const flag = flagMap[r.land] || "🏳️";
 
-      let medalClass = "";
-      if (index === 0) medalClass = "gold";
-      else if (index === 1) medalClass = "silver";
-      else if (index === 2) medalClass = "bronze";
+      let medal = "";
+      if (index === 0) medal = "🥇";
+      else if (index === 1) medal = "🥈";
+      else if (index === 2) medal = "🥉";
 
-      const medal =
-        index === 0 ? "🥇" :
-        index === 1 ? "🥈" :
-        index === 2 ? "🥉" : "";
-
-      let placementIndicator = "";
+      let placementIcon = "";
       let placementClass = "";
 
       if (r.placering > 0) {
-        placementIndicator = "▲";
+        placementIcon = "▲";
         placementClass = "up";
       } else if (r.placering < 0) {
-        placementIndicator = "▼";
+        placementIcon = "▼";
         placementClass = "down";
       } else {
-        placementIndicator = "◆";
+        placementIcon = "◆";
         placementClass = "same";
       }
 
       tbody.innerHTML += `
-        <tr class="${medalClass}">
-          <td class="countryCell">${flag}</td>
+        <tr>
+          <td>${flag}</td>
 
           <td class="nameCol">
             ${medal} ${r.namn}
@@ -226,7 +225,7 @@ fetch("data.csv")
           </td>
 
           <td class="placeCol ${placementClass}">
-            ${placementIndicator} ${r.placering}
+            ${placementIcon} ${r.placering}
           </td>
 
           <td class="pointsCol">
