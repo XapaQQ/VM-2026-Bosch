@@ -12,8 +12,10 @@ body {
   background: #fafafa;
 }
 
-h1 {
-  margin-bottom: 10px;
+/* CONTAINER (hindrar overflow) */
+#grid {
+  width: 100%;
+  max-width: 600px;
 }
 
 /* STATUS */
@@ -27,17 +29,12 @@ h1 {
   font-size: 14px;
 }
 
-/* 🔻 KOMPAKT GRID (~30% mindre) */
-#grid {
-  width: 500px;
-  max-width: 95vw;
-}
-
+/* 🔥 IDENTISK GRID FÖR HEADER + ROW */
 .header, .row {
   display: grid;
-  grid-template-columns: 70px 220px 90px 90px 110px;
+  grid-template-columns: 70px 1fr 80px 80px 90px;
   align-items: center;
-  column-gap: 0px;
+  box-sizing: border-box;
 }
 
 /* HEADER */
@@ -45,15 +42,26 @@ h1 {
   font-weight: bold;
   background: #f2f2f2;
   border: 1px solid #ddd;
-  padding: 6px;
+  padding: 8px;
+}
+
+/* HEADER ALIGNMENT */
+.header div {
+  text-align: center;
   font-size: 13px;
+}
+
+/* NAMN I HEADER VÄNSTER */
+.header div:nth-child(2) {
+  text-align: left;
+  padding-left: 6px;
 }
 
 /* ROW */
 .row {
   border: 1px solid #ddd;
   background: white;
-  padding: 5px;
+  padding: 6px;
 }
 
 /* ZEBRA */
@@ -73,10 +81,10 @@ h1 {
   text-overflow: ellipsis;
 }
 
-/* 🇸🇪 LAND + FLAGGOR (VÄNSTER + STÖRRE) */
+/* FLAGGOR */
 .flag {
-  text-align: left;     /* ← ändrat från center */
-  font-size: 26px;      /* ← större flaggor */
+  text-align: left;
+  font-size: 26px;
   padding-left: 6px;
 }
 
@@ -86,7 +94,7 @@ h1 {
   font-size: 14px;
 }
 
-/* DATA */
+/* DATA KOLUMNER */
 .today, .place, .points {
   text-align: center;
   font-size: 14px;
