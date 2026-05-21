@@ -18,21 +18,26 @@ h1 {
 
 /* STATUS */
 #statusBox {
-  padding: 10px;
-  margin-bottom: 15px;
+  padding: 8px;
+  margin-bottom: 12px;
   border: 1px solid #ccc;
   background: #f7f7f7;
   width: fit-content;
   border-radius: 8px;
+  font-size: 14px;
 }
 
-/* GRID LAYOUT
-   Land görs bredare (≈50% av fasta kolumner)
-*/
+/* 🔻 KOMPAKT GRID (~30% mindre) */
+#grid {
+  width: 500px;
+  max-width: 95vw;
+}
+
 .header, .row {
   display: grid;
-  grid-template-columns: 90px 1fr 120px 120px 210px;
+  grid-template-columns: 70px 220px 90px 90px 110px;
   align-items: center;
+  column-gap: 0px;
 }
 
 /* HEADER */
@@ -40,14 +45,15 @@ h1 {
   font-weight: bold;
   background: #f2f2f2;
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 6px;
+  font-size: 13px;
 }
 
 /* ROW */
 .row {
   border: 1px solid #ddd;
   background: white;
-  padding: 8px;
+  padding: 5px;
 }
 
 /* ZEBRA */
@@ -67,43 +73,38 @@ h1 {
   text-overflow: ellipsis;
 }
 
-/* LAND + FLAGGOR */
+/* 🇸🇪 LAND + FLAGGOR (VÄNSTER + STÖRRE) */
 .flag {
-  text-align: center;
-  font-size: 24px;   /* 🔥 större flaggor */
-  line-height: 1;
+  text-align: left;     /* ← ändrat från center */
+  font-size: 26px;      /* ← större flaggor */
+  padding-left: 6px;
 }
 
-/* NAME */
+/* NAMN */
 .name {
   padding-left: 6px;
+  font-size: 14px;
 }
 
 /* DATA */
 .today, .place, .points {
   text-align: center;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-/* CENTRERING */
-.today, .place, .points {
-  justify-self: center;
+  font-size: 14px;
 }
 
 /* TOP 3 */
 .gold {
-  border-left: 6px solid gold;
+  border-left: 5px solid gold;
   font-weight: bold;
 }
 
 .silver {
-  border-left: 6px solid silver;
+  border-left: 5px solid silver;
   font-weight: bold;
 }
 
 .bronze {
-  border-left: 6px solid #cd7f32;
+  border-left: 5px solid #cd7f32;
   font-weight: bold;
 }
 
