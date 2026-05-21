@@ -28,13 +28,15 @@ h1 {
 }
 
 /* CONTAINER */
-#grid, .header {
+#grid,
+.header {
   width: 750px;
   max-width: 95vw;
 }
 
 /* GRID */
-.header, .row {
+.header,
+.row {
   display: grid;
   grid-template-columns: 88px 275px 140px 100px 112px;
   align-items: center;
@@ -64,7 +66,7 @@ h1 {
   text-overflow: ellipsis;
 }
 
-/* NAME COLUMN LEFT */
+/* NAME LEFT */
 .header > div:nth-child(2),
 .row > div:nth-child(2) {
   text-align: left;
@@ -81,6 +83,7 @@ h1 {
 .row {
   border: 1px solid #ddd;
   background: white;
+  transition: background 0.15s ease;
 }
 
 /* ZEBRA */
@@ -93,9 +96,10 @@ h1 {
   background: #eaf2ff;
 }
 
-/* 🔥 DASHED SEPARATOR AFTER TOP 3 */
+/* 🔥 CLEAN TOP 3 SEPARATOR */
 .row:nth-child(3) {
-  border-bottom: 2px dashed #bbb;
+  border-bottom: 2px dashed rgba(0,0,0,0.45);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
 /* FLAGS */
