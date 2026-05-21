@@ -26,7 +26,7 @@ h1 {
   border-radius: 8px;
 }
 
-/* GRID LAYOUT (x2 bredare kolumner) */
+/* GRID */
 .header, .row {
   display: grid;
   grid-template-columns: 50px 1fr 120px 120px 210px;
@@ -75,10 +75,16 @@ h1 {
   padding-left: 6px;
 }
 
-/* KOLUMNER */
+/* 🔥 DATA STORLEK (inte headers) */
 .today, .place, .points {
   text-align: center;
-  font-size: 13px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* CENTRERING FÖR KOLUMNER 3–5 */
+.today, .place, .points {
+  justify-self: center;
 }
 
 /* TOP 3 */
@@ -97,10 +103,21 @@ h1 {
   font-weight: bold;
 }
 
-/* PLACERING */
-.up { color: green; font-weight: bold; }
-.down { color: red; font-weight: bold; }
-.same { color: goldenrod; font-weight: bold; }
+/* PLACERING FÄRGER */
+.up {
+  color: green;
+  font-weight: bold;
+}
+
+.down {
+  color: red;
+  font-weight: bold;
+}
+
+.same {
+  color: goldenrod;
+  font-weight: bold;
+}
 
 </style>
 </head>
@@ -151,13 +168,17 @@ function render(data) {
       r.placering > 0 ? "▲" :
       r.placering < 0 ? "▼" : "◆";
 
+    let placeClass =
+      r.placering > 0 ? "up" :
+      r.placering < 0 ? "down" : "same";
+
     row.className = cls;
 
     row.innerHTML = `
       <div class="cell flag">${flagMap[r.land] || ""}</div>
       <div class="cell name">${r.namn}</div>
       <div class="cell today">${r.dagenspoäng}</div>
-      <div class="cell place">${placeIcon} ${r.placering}</div>
+      <div class="cell place ${placeClass}">${placeIcon} ${r.placering}</div>
       <div class="cell points">${r.poäng}</div>
     `;
 
