@@ -142,6 +142,7 @@ fetch("data.csv")
   .then(text => {
 
     const rows = text
+      .replace(/\r/g, "")
       .trim()
       .split("\n")
       .slice(1);
@@ -149,16 +150,16 @@ fetch("data.csv")
     const data = rows
       .map(r => r.split(/[;,]/).map(x => x.trim()))
       .filter(r =>
-        r.length === 5 &&
-        !r[0].includes("#N/A") &&
-        r[0] !== ""
+        r.length >= 5 &&
+        r[0] !== "" &&
+        !r[0].includes("#N/A")
       )
-      .map(([land, namn, poäng, dagenspoäng, placering]) => ({
-        land,
-        namn,
-        poäng: Number(poäng),
-        dagenspoäng: Number(dagenspoäng),
-        placering: Number(placering)
+      .map(cols => ({
+        land: cols[0],
+        namn: cols[1],
+        poäng: Number(cols[2]),
+        dagenspoäng: Number(cols[3]),
+        placering: Number(cols[4])
       }));
 
     // Sortera högst poäng först
