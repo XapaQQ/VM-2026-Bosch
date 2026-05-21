@@ -18,7 +18,7 @@
 
     table {
       border-collapse: collapse;
-      width: 60%;
+      width: 75%;
       background: white;
     }
 
@@ -79,6 +79,23 @@
       box-shadow: 0 0 8px rgba(205,127,50,0.4);
     }
 
+    /* PLACERING */
+
+    .up {
+      color: green;
+      font-weight: bold;
+    }
+
+    .down {
+      color: red;
+      font-weight: bold;
+    }
+
+    .same {
+      color: goldenrod;
+      font-weight: bold;
+    }
+
   </style>
 </head>
 
@@ -95,6 +112,8 @@
     <tr>
       <th>Land</th>
       <th>Namn</th>
+      <th>Dagens Poäng</th>
+      <th>Placering</th>
       <th>Poäng</th>
     </tr>
   </thead>
@@ -130,14 +149,16 @@ fetch("data.csv")
     const data = rows
       .map(r => r.split(/[;,]/).map(x => x.trim()))
       .filter(r =>
-        r.length === 3 &&
+        r.length === 5 &&
         !r[0].includes("#N/A") &&
         r[0] !== ""
       )
-      .map(([land, namn, poäng]) => ({
+      .map(([land, namn, poäng, dagenspoäng, placering]) => ({
         land,
         namn,
-        poäng: Number(poäng)
+        poäng: Number(poäng),
+        dagenspoäng: Number(dagenspoäng),
+        placering: Number(placering)
       }));
 
     // Sortera högst poäng först
@@ -161,10 +182,30 @@ fetch("data.csv")
         index === 1 ? "🥈" :
         index === 2 ? "🥉" : "";
 
+      let placementIndicator = "";
+      let placementClass = "";
+
+      if (r.placering > 0) {
+        placementIndicator = "▲";
+        placementClass = "up";
+      }
+      else if (r.placering < 0) {
+        placementIndicator = "▼";
+        placementClass = "down";
+      }
+      else {
+        placementIndicator = "◆";
+        placementClass = "same";
+      }
+
       tbody.innerHTML += `
         <tr class="${medalClass}">
           <td class="countryCell">${flag}</td>
           <td>${medal} ${r.namn}</td>
+          <td>${r.dagenspoäng}</td>
+          <td class="${placementClass}">
+            ${placementIndicator} ${r.placering}
+          </td>
           <td>${r.poäng}</td>
         </tr>
       `;
