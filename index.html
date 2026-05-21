@@ -97,12 +97,11 @@ h1 {
   font-weight: 500;
 }
 
-/* 🔥 TOP 3 FIX (NO LAYOUT SHIFT) */
+/* 🔥 TOP 3 MEDAL STRIPES (NO LAYOUT SHIFT) */
 .gold, .silver, .bronze {
   position: relative;
 }
 
-/* medal stripes as overlay (NO border-left) */
 .gold::before,
 .silver::before,
 .bronze::before {
@@ -117,6 +116,11 @@ h1 {
 .gold::before { background: gold; }
 .silver::before { background: silver; }
 .bronze::before { background: #cd7f32; }
+
+/* 🔥 FET LINJE EFTER TOP 3 */
+.row:nth-child(3) {
+  border-bottom: 4px solid #333;
+}
 
 /* PLACERING */
 .up { color: green; font-weight: bold; }
