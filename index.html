@@ -25,10 +25,9 @@
 
     th, td {
       border: 1px solid #ddd;
-      padding: 10px;
+      padding: 8px;
       text-align: left;
       overflow: hidden;
-      text-overflow: ellipsis;
       white-space: nowrap;
     }
 
@@ -48,28 +47,31 @@
       text-align: center;
     }
 
-    /* NAMN TAR RESTEN */
+    /* NAMN = BREDARE */
     .nameCol {
-      width: auto;
+      width: 55%;
     }
 
     /* SMÅ KOLUMNER */
     .todayCol {
-      width: 45px;
+      width: 35px;
       text-align: center;
-      font-size: 13px;
+      font-size: 12px;
+      padding: 6px;
     }
 
     .placeCol {
-      width: 45px;
+      width: 35px;
       text-align: center;
-      font-size: 13px;
+      font-size: 12px;
+      padding: 6px;
     }
 
     .pointsCol {
-      width: 55px;
+      width: 45px;
       text-align: center;
-      font-size: 13px;
+      font-size: 12px;
+      padding: 6px;
     }
 
     /* STATUSBOX */
@@ -82,27 +84,24 @@
       border-radius: 8px;
     }
 
-    /* 🥇 TOP 3 - EXTRA FETT */
+    /* TOP 3 */
     .gold {
       background: linear-gradient(to right, #fff7cc, #fff2a8);
       border-left: 8px solid gold;
       font-weight: 900;
-      box-shadow: 0 0 12px rgba(255,215,0,0.6);
-      transform: scale(1.01);
+      box-shadow: 0 0 12px rgba(255,215,0,0.5);
     }
 
     .silver {
       background: linear-gradient(to right, #f5f5f5, #e5e5e5);
       border-left: 8px solid silver;
       font-weight: 900;
-      box-shadow: 0 0 10px rgba(180,180,180,0.5);
     }
 
     .bronze {
       background: linear-gradient(to right, #f7dfcf, #edc2a7);
       border-left: 8px solid #cd7f32;
       font-weight: 900;
-      box-shadow: 0 0 10px rgba(205,127,50,0.5);
     }
 
     /* PLACERING */
@@ -149,19 +148,11 @@ fetch("data.csv")
   .then(res => res.text())
   .then(text => {
 
-    const rows = text
-      .replace(/\r/g, "")
-      .trim()
-      .split("\n")
-      .slice(1);
+    const rows = text.trim().split("\n").slice(1);
 
     const data = rows
       .map(r => r.split(/[;,]/).map(x => x.trim()))
-      .filter(r =>
-        r.length >= 5 &&
-        r[0] !== "" &&
-        !r[0].includes("#N/A")
-      )
+      .filter(r => r.length >= 5 && r[0] !== "")
       .map(cols => ({
         land: cols[0],
         namn: cols[1],
@@ -198,8 +189,13 @@ fetch("data.csv")
         placementClass = "same";
       }
 
+      const rowClass =
+        index === 0 ? "gold" :
+        index === 1 ? "silver" :
+        index === 2 ? "bronze" : "";
+
       tbody.innerHTML += `
-        <tr class="${index < 3 ? (index === 0 ? 'gold' : index === 1 ? 'silver' : 'bronze') : ''}">
+        <tr class="${rowClass}">
           <td>${flag}</td>
 
           <td class="nameCol">
@@ -232,16 +228,10 @@ fetch("https://api.github.com/repos/XapaQQ/VM-2026-Bosch/commits")
 
     const date = new Date(data[0].commit.committer.date);
 
-    const formatted = date.toLocaleString("sv-SE", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit"
-    });
-
     document.getElementById("statusBox").innerHTML =
-      "🕒 Senast uppdaterad: <b>" + formatted + "</b>";
+      "🕒 Senast uppdaterad: <b>" +
+      date.toLocaleString("sv-SE") +
+      "</b>";
 
   })
   .catch(() => {
