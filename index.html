@@ -27,29 +27,36 @@ h1 {
   font-size: 14px;
 }
 
-/* 🔥 CONTAINER */
-#grid {
-  width: 100%;
-  max-width: 600px;
+/* 🔥 FIX: fast grid som aldrig drifter */
+#grid, .header {
+  width: 600px;
+  max-width: 95vw;
 }
 
 /* 🔥 IDENTISK GRID FÖR HEADER + ROW */
 .header, .row {
   display: grid;
-  grid-template-columns: 70px 1fr 80px 80px 90px;
+  grid-template-columns: 70px 220px 80px 80px 90px;
   align-items: center;
-  line-height: 1;
 }
 
-/* 🔥 CRITICAL FIX: exakt samma box-modell överallt */
+/* 🔥 CRITICAL: samma boxmodell överallt */
 .header > div,
 .row > div {
   box-sizing: border-box;
   padding: 6px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ALIGN */
+.header > div,
+.row > div {
   text-align: center;
 }
 
-/* vänsterjustera namnkolumnen */
+/* namn vänster */
 .header > div:nth-child(2),
 .row > div:nth-child(2) {
   text-align: left;
@@ -82,6 +89,7 @@ h1 {
 .flag {
   text-align: left;
   font-size: 26px;
+  padding-left: 6px;
 }
 
 /* NAMN */
