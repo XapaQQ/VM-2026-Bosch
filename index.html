@@ -33,7 +33,7 @@ h1 {
   max-width: 95vw;
 }
 
-/* IDENTISK GRID */
+/* GRID */
 .header, .row {
   display: grid;
   grid-template-columns: 88px 275px 140px 100px 112px;
@@ -46,12 +46,25 @@ h1 {
   box-sizing: border-box;
   padding: 6px;
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   text-align: center;
 }
 
-/* namn vänster */
+/* HEADER TEXT WRAP */
+.header > div {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  line-height: 1.1;
+  word-break: break-word;
+}
+
+/* ROW TEXT */
+.row > div {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* NAME COLUMN LEFT */
 .header > div:nth-child(2),
 .row > div:nth-child(2) {
   text-align: left;
@@ -64,7 +77,7 @@ h1 {
   border: 1px solid #ddd;
 }
 
-/* ROW */
+/* ROWS */
 .row {
   border: 1px solid #ddd;
   background: white;
@@ -80,7 +93,12 @@ h1 {
   background: #eaf2ff;
 }
 
-/* FLAGGOR */
+/* 🔥 DASHED SEPARATOR AFTER TOP 3 */
+.row:nth-child(3) {
+  border-bottom: 2px dashed #bbb;
+}
+
+/* FLAGS */
 .flag {
   text-align: left;
   font-size: 28px;
@@ -92,13 +110,17 @@ h1 {
   font-size: 14px;
 }
 
-.today, .place, .points {
+.today,
+.place,
+.points {
   font-size: 14px;
   font-weight: 500;
 }
 
-/* 🔥 TOP 3 MEDAL STRIPES (NO LAYOUT SHIFT) */
-.gold, .silver, .bronze {
+/* TOP 3 */
+.gold,
+.silver,
+.bronze {
   position: relative;
 }
 
@@ -113,19 +135,33 @@ h1 {
   width: 5px;
 }
 
-.gold::before { background: gold; }
-.silver::before { background: silver; }
-.bronze::before { background: #cd7f32; }
+.gold::before {
+  background: gold;
+}
 
-/* 🔥 FET LINJE EFTER TOP 3 */
-.row:nth-child(3) {
-  border-bottom: 4px solid #333;
+.silver::before {
+  background: silver;
+}
+
+.bronze::before {
+  background: #cd7f32;
 }
 
 /* PLACERING */
-.up { color: green; font-weight: bold; }
-.down { color: red; font-weight: bold; }
-.same { color: goldenrod; font-weight: bold; }
+.up {
+  color: green;
+  font-weight: bold;
+}
+
+.down {
+  color: red;
+  font-weight: bold;
+}
+
+.same {
+  color: goldenrod;
+  font-weight: bold;
+}
 
 </style>
 </head>
@@ -134,8 +170,11 @@ h1 {
 
 <h1>VM 2026 Tabell</h1>
 
-<div id="statusBox">⏳ Laddar senaste uppdatering...</div>
+<div id="statusBox">
+  ⏳ Laddar senaste uppdatering...
+</div>
 
+<!-- HEADER -->
 <div class="header">
   <div>Land</div>
   <div>Namn</div>
@@ -144,6 +183,7 @@ h1 {
   <div>Total Poäng</div>
 </div>
 
+<!-- DATA -->
 <div id="grid"></div>
 
 <script>
@@ -170,23 +210,28 @@ function render(data) {
     const cls =
       i === 0 ? "row gold" :
       i === 1 ? "row silver" :
-      i === 2 ? "row bronze" : "row";
+      i === 2 ? "row bronze" :
+      "row";
 
-    let placeIcon =
+    const placeIcon =
       r.placering > 0 ? "▲" :
-      r.placering < 0 ? "▼" : "◆";
+      r.placering < 0 ? "▼" :
+      "◆";
 
-    let placeClass =
+    const placeClass =
       r.placering > 0 ? "up" :
-      r.placering < 0 ? "down" : "same";
+      r.placering < 0 ? "down" :
+      "same";
 
     row.className = cls;
 
     row.innerHTML = `
-      <div class="flag">${flagMap[r.land] || ""}</div>
+      <div class="flag">${flagMap[r.land] || "🏳️"}</div>
       <div class="name">${r.namn}</div>
       <div class="today">${r.dagenspoäng}</div>
-      <div class="place ${placeClass}">${placeIcon} ${r.placering}</div>
+      <div class="place ${placeClass}">
+        ${placeIcon} ${r.placering}
+      </div>
       <div class="points">${r.poäng}</div>
     `;
 
@@ -194,14 +239,20 @@ function render(data) {
   });
 }
 
+/* LOAD CSV */
 fetch("data.csv")
   .then(res => res.text())
   .then(text => {
 
-    const rows = text.trim().split("\n").slice(1);
+    const rows = text
+      .trim()
+      .split("\n")
+      .slice(1);
 
     const data = rows.map(r => {
+
       const c = r.split(";").map(x => x.trim());
+
       return {
         land: c[0],
         namn: c[1],
@@ -209,22 +260,36 @@ fetch("data.csv")
         dagenspoäng: Number(c[3]),
         placering: Number(c[4])
       };
+
     });
 
     data.sort((a, b) => b.poäng - a.poäng);
 
     render(data);
 
+  })
+  .catch(err => {
+    console.error("Kunde inte läsa CSV:", err);
   });
 
+/* STATUS BOX */
 fetch("https://api.github.com/repos/XapaQQ/VM-2026-Bosch/commits")
   .then(r => r.json())
   .then(data => {
+
     const date = new Date(data[0].commit.committer.date);
+
     document.getElementById("statusBox").innerHTML =
       "🕒 Senast uppdaterad: <b>" +
       date.toLocaleString("sv-SE") +
       "</b>";
+
+  })
+  .catch(() => {
+
+    document.getElementById("statusBox").innerHTML =
+      "⚠️ Kunde inte hämta uppdatering";
+
   });
 
 </script>
