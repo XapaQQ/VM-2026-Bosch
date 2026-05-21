@@ -45,6 +45,27 @@
       color: #f2f2f2;
     }
 
+    /* KOLUMNBREDDER */
+
+    .nameCol {
+      width: 30%;
+    }
+
+    .todayCol {
+      width: 12%;
+      text-align: center;
+    }
+
+    .placeCol {
+      width: 12%;
+      text-align: center;
+    }
+
+    .pointsCol {
+      width: 12%;
+      text-align: center;
+    }
+
     /* STATUSBOX */
 
     #statusBox {
@@ -111,10 +132,10 @@
   <thead>
     <tr>
       <th>Land</th>
-      <th>Namn</th>
-      <th>Dagens Poäng</th>
-      <th>Placering</th>
-      <th>Poäng</th>
+      <th class="nameCol">Namn</th>
+      <th class="todayCol">Dagens Poäng</th>
+      <th class="placeCol">Placering</th>
+      <th class="pointsCol">Poäng</th>
     </tr>
   </thead>
 
@@ -202,12 +223,22 @@ fetch("data.csv")
       tbody.innerHTML += `
         <tr class="${medalClass}">
           <td class="countryCell">${flag}</td>
-          <td>${medal} ${r.namn}</td>
-          <td>${r.dagenspoäng}</td>
-          <td class="${placementClass}">
+
+          <td class="nameCol">
+            ${medal} ${r.namn}
+          </td>
+
+          <td class="todayCol">
+            ${r.dagenspoäng}
+          </td>
+
+          <td class="placeCol ${placementClass}">
             ${placementIndicator} ${r.placering}
           </td>
-          <td>${r.poäng}</td>
+
+          <td class="pointsCol">
+            ${r.poäng}
+          </td>
         </tr>
       `;
     });
