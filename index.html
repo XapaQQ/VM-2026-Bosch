@@ -20,7 +20,7 @@
       border-collapse: collapse;
       width: 75%;
       background: white;
-      table-layout: fixed; /* 🔥 VIKTIG FIX */
+      table-layout: fixed; /* viktig */
     }
 
     th, td {
@@ -29,15 +29,9 @@
       text-align: left;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
     }
 
-    th {
-      background: #f2f2f2;
-    }
-
-    /* LAND-KOLUMN */
-
+    /* LAND */
     table th:first-child,
     table td:first-child {
       width: 55px;
@@ -46,32 +40,33 @@
 
     .countryCell {
       font-size: 28px;
-      color: #f2f2f2;
     }
 
-    /* KOLUMNBREDDER (FIXAD) */
-
+    /* NAMN = DYNAMISK */
     .nameCol {
-      width: 45%;
+      width: auto;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
+    /* ÖVRIGA FASTA KOLUMNER */
     .todayCol {
-      width: 10%;
+      width: 110px;
       text-align: center;
     }
 
     .placeCol {
-      width: 10%;
+      width: 110px;
       text-align: center;
     }
 
     .pointsCol {
-      width: 10%;
+      width: 110px;
       text-align: center;
     }
 
     /* STATUSBOX */
-
     #statusBox {
       padding: 10px;
       margin-bottom: 15px;
@@ -82,7 +77,6 @@
     }
 
     /* TOP 3 */
-
     .gold {
       background: linear-gradient(to right, #fff7cc, #fff2a8);
       border-left: 8px solid gold;
@@ -105,7 +99,6 @@
     }
 
     /* PLACERING */
-
     .up {
       color: green;
       font-weight: bold;
@@ -136,10 +129,10 @@
   <thead>
     <tr>
       <th>Land</th>
-      <th class="nameCol">Namn</th>
-      <th class="todayCol">Dagens Poäng</th>
-      <th class="placeCol">Placering</th>
-      <th class="pointsCol">Poäng</th>
+      <th>Namn</th>
+      <th>Dagens Poäng</th>
+      <th>Placering</th>
+      <th>Poäng</th>
     </tr>
   </thead>
 
@@ -159,7 +152,7 @@ const flagMap = {
 };
 
 // ─────────────────────────────
-// LÄS CSV OCH BYGG TABELL
+// CSV LOAD
 // ─────────────────────────────
 
 fetch("data.csv")
@@ -223,12 +216,22 @@ fetch("data.csv")
       tbody.innerHTML += `
         <tr class="${medalClass}">
           <td class="countryCell">${flag}</td>
-          <td class="nameCol">${medal} ${r.namn}</td>
-          <td class="todayCol">${r.dagenspoäng}</td>
+
+          <td class="nameCol">
+            ${medal} ${r.namn}
+          </td>
+
+          <td class="todayCol">
+            ${r.dagenspoäng}
+          </td>
+
           <td class="placeCol ${placementClass}">
             ${placementIndicator} ${r.placering}
           </td>
-          <td class="pointsCol">${r.poäng}</td>
+
+          <td class="pointsCol">
+            ${r.poäng}
+          </td>
         </tr>
       `;
     });
