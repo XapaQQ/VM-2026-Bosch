@@ -27,20 +27,20 @@ h1 {
   font-size: 14px;
 }
 
-/* 🔥 1.25x BREDARE CONTAINER */
+/* CONTAINER */
 #grid, .header {
   width: 750px;
   max-width: 95vw;
 }
 
-/* 🔥 IDENTISK GRID FÖR HEADER + ROW (1.25x skalat) */
+/* IDENTISK GRID */
 .header, .row {
   display: grid;
-  grid-template-columns: 88px 275px 100px 100px 112px;
+  grid-template-columns: 88px 275px 140px 100px 112px;
   align-items: center;
 }
 
-/* BOX FIX (pixel-stabilitet) */
+/* BOX MODEL FIX */
 .header > div,
 .row > div {
   box-sizing: border-box;
@@ -51,10 +51,19 @@ h1 {
   text-align: center;
 }
 
-/* namn vänster */
+/* NAMN VÄNSTER */
 .header > div:nth-child(2),
 .row > div:nth-child(2) {
   text-align: left;
+}
+
+/* 🔥 HEADER WRAP FIX (DIN NYA REQUEST) */
+.header > div {
+  white-space: normal;     /* tillåter radbrytning */
+  overflow: visible;       /* ingen klippning */
+  text-overflow: unset;    /* stänger ellipsis */
+  line-height: 1.1;
+  word-break: break-word;
 }
 
 /* HEADER */
@@ -83,7 +92,7 @@ h1 {
 /* FLAGGOR */
 .flag {
   text-align: left;
-  font-size: 28px; /* lite större flaggor */
+  font-size: 28px;
   padding-left: 6px;
 }
 
