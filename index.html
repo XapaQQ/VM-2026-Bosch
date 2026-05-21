@@ -26,10 +26,12 @@ h1 {
   border-radius: 8px;
 }
 
-/* GRID */
+/* GRID LAYOUT
+   Land görs bredare (≈50% av fasta kolumner)
+*/
 .header, .row {
   display: grid;
-  grid-template-columns: 50px 1fr 120px 120px 210px;
+  grid-template-columns: 90px 1fr 120px 120px 210px;
   align-items: center;
 }
 
@@ -65,9 +67,11 @@ h1 {
   text-overflow: ellipsis;
 }
 
-/* LAND */
+/* LAND + FLAGGOR */
 .flag {
   text-align: center;
+  font-size: 24px;   /* 🔥 större flaggor */
+  line-height: 1;
 }
 
 /* NAME */
@@ -75,14 +79,14 @@ h1 {
   padding-left: 6px;
 }
 
-/* 🔥 DATA STORLEK (inte headers) */
+/* DATA */
 .today, .place, .points {
   text-align: center;
   font-size: 16px;
   font-weight: 500;
 }
 
-/* CENTRERING FÖR KOLUMNER 3–5 */
+/* CENTRERING */
 .today, .place, .points {
   justify-self: center;
 }
@@ -103,21 +107,10 @@ h1 {
   font-weight: bold;
 }
 
-/* PLACERING FÄRGER */
-.up {
-  color: green;
-  font-weight: bold;
-}
-
-.down {
-  color: red;
-  font-weight: bold;
-}
-
-.same {
-  color: goldenrod;
-  font-weight: bold;
-}
+/* PLACERING */
+.up { color: green; font-weight: bold; }
+.down { color: red; font-weight: bold; }
+.same { color: goldenrod; font-weight: bold; }
 
 </style>
 </head>
