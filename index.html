@@ -16,6 +16,7 @@ h1 {
   margin-bottom: 10px;
 }
 
+/* STATUS */
 #statusBox {
   padding: 8px;
   margin-bottom: 12px;
@@ -26,24 +27,24 @@ h1 {
   font-size: 14px;
 }
 
-/* TVÅ TABELLER BREDVID VARANDRA */
-
+/* LAYOUT: TVÅ TABELLER */
 .tables {
   display: flex;
   gap: 20px;
   align-items: flex-start;
 }
 
+/* HUVUDTABELL */
 .table-main {
   width: 750px;
 }
 
+/* MEDALJTABELL */
 .table-medals {
-  width: 240px;
+  width: 480px;
 }
 
-/* HUVUDTABELL */
-
+/* HEADER + ROW MAIN */
 .header,
 .row {
   display: grid;
@@ -55,21 +56,7 @@ h1 {
 .row > div {
   box-sizing: border-box;
   padding: 6px;
-  overflow: hidden;
   text-align: center;
-}
-
-.header > div {
-  white-space: normal;
-  overflow: visible;
-  text-overflow: unset;
-  line-height: 1.1;
-  word-break: break-word;
-}
-
-.row > div {
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .header > div:nth-child(2),
@@ -86,28 +73,46 @@ h1 {
 .row {
   border: 1px solid #ddd;
   background: white;
-  transition: background 0.15s ease;
 }
 
 .row:nth-child(even) {
   background: #f6f6f6;
 }
 
-.row:hover {
-  background: #eaf2ff;
+/* TOP 3 */
+.gold, .silver, .bronze {
+  position: relative;
 }
 
-.row:nth-child(3) {
-  border-bottom: 2px dashed rgba(0,0,0,0.45);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+.gold::before {
+  content:"";
+  position:absolute;
+  left:0;top:0;bottom:0;width:5px;
+  background: gold;
+}
+.silver::before {
+  content:"";
+  position:absolute;
+  left:0;top:0;bottom:0;width:5px;
+  background: silver;
+}
+.bronze::before {
+  content:"";
+  position:absolute;
+  left:0;top:0;bottom:0;width:5px;
+  background: #cd7f32;
+}
+
+/* FLAGGA */
+.flag {
+  font-size: 26px;
 }
 
 /* MEDALJTABELL */
-
 .medals-header,
 .medal-row {
   display: grid;
-  grid-template-columns: 80px 80px 80px;
+  grid-template-columns: 160px 160px 160px;
   align-items: center;
 }
 
@@ -117,99 +122,19 @@ h1 {
   border: 1px solid #ddd;
 }
 
-.medals-header div,
-.medal-row div {
-  padding: 6px;
-  text-align: center;
-  box-sizing: border-box;
-}
-
 .medal-row {
   border: 1px solid #ddd;
   background: white;
-  transition: background 0.15s ease;
 }
 
 .medal-row:nth-child(even) {
   background: #f6f6f6;
 }
 
-.medal-row:hover {
-  background: #eaf2ff;
-}
-
-.medal-row:nth-child(3) {
-  border-bottom: 2px dashed rgba(0,0,0,0.45);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-}
-
-/* FLAGS */
-
-.flag {
-  text-align: left;
-  font-size: 28px;
-  padding-left: 6px;
-}
-
-/* TEXT */
-
-.name {
-  font-size: 14px;
-}
-
-.today,
-.place,
-.points {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-/* TOP 3 */
-
-.gold,
-.silver,
-.bronze {
-  position: relative;
-}
-
-.gold::before,
-.silver::before,
-.bronze::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 5px;
-}
-
-.gold::before {
-  background: gold;
-}
-
-.silver::before {
-  background: silver;
-}
-
-.bronze::before {
-  background: #cd7f32;
-}
-
-/* PLACERING */
-
-.up {
-  color: green;
-  font-weight: bold;
-}
-
-.down {
-  color: red;
-  font-weight: bold;
-}
-
-.same {
-  color: goldenrod;
-  font-weight: bold;
+.medal-row > div {
+  padding: 6px;
+  text-align: center;
+  white-space: nowrap;
 }
 
 </style>
@@ -219,14 +144,11 @@ h1 {
 
 <h1>VM 2026 Tabell</h1>
 
-<div id="statusBox">
-  ⏳ Laddar senaste uppdatering...
-</div>
+<div id="statusBox">⏳ Laddar...</div>
 
 <div class="tables">
 
   <!-- HUVUDTABELL -->
-
   <div class="table-main">
 
     <div class="header">
@@ -242,7 +164,6 @@ h1 {
   </div>
 
   <!-- MEDALJTABELL -->
-
   <div class="table-medals">
 
     <div class="medals-header">
@@ -259,6 +180,21 @@ h1 {
 
 <script>
 
+/* FLAGS */
+const countryFlagMap = {
+  SWEDEN: "🇸🇪",
+  BRAZIL: "🇧🇷",
+  ARGENTINA: "🇦🇷",
+  FRANCE: "🇫🇷",
+  SPAIN: "🇪🇸",
+  ENGLAND: "🇬🇧",
+  GERMANY: "🇩🇪",
+  PORTUGAL: "🇵🇹",
+  URUGUAY: "🇺🇾",
+  NETHERLANDS: "🇳🇱"
+};
+
+/* MAIN FLAG MAP */
 const flagMap = {
   Sweden: "🇸🇪",
   Germany: "🇩🇪",
@@ -271,6 +207,7 @@ const flagMap = {
   Brasil: "🇧🇷"
 };
 
+/* RENDER MAIN */
 function render(data) {
 
   const grid = document.getElementById("grid");
@@ -300,50 +237,49 @@ function render(data) {
 
     row.innerHTML = `
       <div class="flag">${flagMap[r.land] || "🏳️"}</div>
-      <div class="name">${r.namn}</div>
-      <div class="today">${r.dagenspoäng}</div>
-      <div class="place ${placeClass}">
-        ${placeIcon} ${r.placering}
-      </div>
-      <div class="points">${r.poäng}</div>
+      <div>${r.namn}</div>
+      <div>${r.dagenspoäng}</div>
+      <div>${placeIcon} ${r.placering}</div>
+      <div>${r.poäng}</div>
     `;
 
     grid.appendChild(row);
   });
 }
 
+/* RENDER MEDALS */
 function renderMedals(data) {
 
   const grid = document.getElementById("medalGrid");
   grid.innerHTML = "";
 
-  data.forEach(() => {
+  data.forEach(r => {
 
     const row = document.createElement("div");
     row.className = "medal-row";
 
+    const gold = countryFlagMap[r.gold?.toUpperCase()] || "🏳️";
+    const silver = countryFlagMap[r.silver?.toUpperCase()] || "🏳️";
+    const bronze = countryFlagMap[r.bronze?.toUpperCase()] || "🏳️";
+
     row.innerHTML = `
-      <div></div>
-      <div></div>
-      <div></div>
+      <div>${gold} ${r.gold}</div>
+      <div>${silver} ${r.silver}</div>
+      <div>${bronze} ${r.bronze}</div>
     `;
 
     grid.appendChild(row);
-
   });
 }
 
+/* LOAD CSV */
 fetch("data.csv")
   .then(res => res.text())
   .then(text => {
 
-    const rows = text
-      .trim()
-      .split("\n")
-      .slice(1);
+    const rows = text.trim().split("\n").slice(1);
 
     const data = rows.map(r => {
-
       const c = r.split(";").map(x => x.trim());
 
       return {
@@ -352,45 +288,20 @@ fetch("data.csv")
         poäng: Number(c[2]),
         dagenspoäng: Number(c[3]),
         placering: Number(c[4]),
-        gold: c[5] || "",
-        silver: c[6] || "",
-        bronze: c[7] || ""
+        gold: c[5],
+        silver: c[6],
+        bronze: c[7]
       };
-
     });
 
     data.sort((a, b) => b.poäng - a.poäng);
 
     render(data);
+    renderMedals(data);
 
-    const medalGrid = document.getElementById("medalGrid");
-    medalGrid.innerHTML = "";
-
-    data.forEach((r, i) => {
-
-      const row = document.createElement("div");
-      row.className = "medal-row";
-
-      if (i === 2) {
-        row.style.borderBottom = "2px dashed rgba(0,0,0,0.45)";
-        row.style.boxShadow = "0 4px 6px rgba(0,0,0,0.05)";
-      }
-
-      row.innerHTML = `
-        <div>${r.gold}</div>
-        <div>${r.silver}</div>
-        <div>${r.bronze}</div>
-      `;
-
-      medalGrid.appendChild(row);
-
-    });
-
-  })
-  .catch(err => {
-    console.error("Kunde inte läsa CSV:", err);
   });
 
+/* STATUS */
 fetch("https://api.github.com/repos/XapaQQ/VM-2026-Bosch/commits")
   .then(r => r.json())
   .then(data => {
@@ -401,12 +312,6 @@ fetch("https://api.github.com/repos/XapaQQ/VM-2026-Bosch/commits")
       "🕒 Senast uppdaterad: <b>" +
       date.toLocaleString("sv-SE") +
       "</b>";
-
-  })
-  .catch(() => {
-
-    document.getElementById("statusBox").innerHTML =
-      "⚠️ Kunde inte hämta uppdatering";
 
   });
 
