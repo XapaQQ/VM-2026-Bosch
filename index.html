@@ -8,6 +8,7 @@
 
 :root {
   --row-height: 44px;
+  --header-height: 44px;
 }
 
 body {
@@ -48,7 +49,10 @@ h1 {
   width: 520px;
 }
 
-/* MAIN GRID */
+/* =========================
+   MAIN HEADER + ROWS
+========================= */
+
 .header,
 .row {
   display: grid;
@@ -56,20 +60,25 @@ h1 {
   align-items: center;
 }
 
-.header > div,
-.row > div {
-  box-sizing: border-box;
-  padding: 6px 10px;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
 .header {
+  height: var(--header-height);
+  min-height: var(--header-height);
+  max-height: var(--header-height);
+  box-sizing: border-box;
   font-weight: bold;
   background: #f2f2f2;
   border: 1px solid #ddd;
+}
+
+.header > div {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .row {
@@ -82,6 +91,14 @@ h1 {
 
 .row:nth-child(even) {
   background: #f6f6f6;
+}
+
+.row > div {
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  white-space: nowrap;
 }
 
 /* TOP 3 */
@@ -113,33 +130,49 @@ h1 {
   font-size: 22px;
 }
 
-/* MEDAL TABLE */
+/* =========================
+   MEDAL TABLE
+========================= */
+
 .medals-header,
 .medal-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  align-items: stretch;
-  height: var(--row-height);
-  min-height: var(--row-height);
+  align-items: center;
 }
 
 .medals-header {
+  height: var(--header-height);
+  min-height: var(--header-height);
+  max-height: var(--header-height);
+  box-sizing: border-box;
   font-weight: bold;
   background: #f2f2f2;
   border: 1px solid #ddd;
 }
 
+.medals-header > div {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
 .medal-row {
   border: 1px solid #ddd;
   background: white;
+  height: var(--row-height);
+  min-height: var(--row-height);
+  max-height: var(--row-height);
 }
 
 .medal-row:nth-child(even) {
   background: #f6f6f6;
 }
 
-.medal-row > div,
-.medals-header > div {
+.medal-row > div {
   padding: 6px 10px;
   display: flex;
   align-items: center;
@@ -195,7 +228,7 @@ h1 {
 
 <script>
 
-/* FLAGS MAIN */
+/* FLAGS */
 const flagMap = {
   Sweden: "🇸🇪",
   Germany: "🇩🇪",
@@ -208,7 +241,6 @@ const flagMap = {
   Brasil: "🇧🇷"
 };
 
-/* FLAGS MEDALS */
 const countryFlagMap = {
   SWEDEN: "🇸🇪",
   BRAZIL: "🇧🇷",
@@ -222,7 +254,7 @@ const countryFlagMap = {
   NETHERLANDS: "🇳🇱"
 };
 
-/* MAIN RENDER */
+/* MAIN */
 function render(data) {
 
   const grid = document.getElementById("grid");
@@ -257,7 +289,7 @@ function render(data) {
   });
 }
 
-/* MEDAL RENDER */
+/* MEDALS */
 function renderMedals(data) {
 
   const grid = document.getElementById("medalGrid");
@@ -280,10 +312,9 @@ function renderMedals(data) {
 
     grid.appendChild(row);
   });
-
 }
 
-/* LOAD DATA */
+/* LOAD */
 fetch("data.csv")
   .then(res => res.text())
   .then(text => {
