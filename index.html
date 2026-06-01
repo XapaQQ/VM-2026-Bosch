@@ -6,6 +6,10 @@
 
 <style>
 
+:root {
+  --row-height: 44px;
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 30px;
@@ -27,24 +31,24 @@ h1 {
   font-size: 14px;
 }
 
-/* LAYOUT: TVÅ TABELLER */
+/* LAYOUT */
 .tables {
   display: flex;
-  gap: 20px;
+  gap: 40px;
   align-items: flex-start;
 }
 
-/* HUVUDTABELL */
+/* MAIN */
 .table-main {
-  width: 750px;
+  width: 800px;
 }
 
-/* MEDALJTABELL */
+/* MEDALS */
 .table-medals {
-  width: 480px;
+  width: 520px;
 }
 
-/* HEADER + ROW MAIN */
+/* MAIN GRID */
 .header,
 .row {
   display: grid;
@@ -55,13 +59,11 @@ h1 {
 .header > div,
 .row > div {
   box-sizing: border-box;
-  padding: 6px;
-  text-align: center;
-}
-
-.header > div:nth-child(2),
-.row > div:nth-child(2) {
-  text-align: left;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .header {
@@ -73,6 +75,9 @@ h1 {
 .row {
   border: 1px solid #ddd;
   background: white;
+  height: var(--row-height);
+  min-height: var(--row-height);
+  max-height: var(--row-height);
 }
 
 .row:nth-child(even) {
@@ -103,17 +108,19 @@ h1 {
   background: #cd7f32;
 }
 
-/* FLAGGA */
+/* FLAG */
 .flag {
-  font-size: 26px;
+  font-size: 22px;
 }
 
-/* MEDALJTABELL */
+/* MEDAL TABLE */
 .medals-header,
 .medal-row {
   display: grid;
-  grid-template-columns: 160px 160px 160px;
-  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: stretch;
+  height: var(--row-height);
+  min-height: var(--row-height);
 }
 
 .medals-header {
@@ -131,10 +138,18 @@ h1 {
   background: #f6f6f6;
 }
 
-.medal-row > div {
-  padding: 6px;
-  text-align: center;
+.medal-row > div,
+.medals-header > div {
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
   white-space: nowrap;
+}
+
+/* separators */
+.medal-row > div:not(:last-child),
+.medals-header > div:not(:last-child) {
+  border-right: 1px solid #e0e0e0;
 }
 
 </style>
@@ -148,7 +163,7 @@ h1 {
 
 <div class="tables">
 
-  <!-- HUVUDTABELL -->
+  <!-- MAIN -->
   <div class="table-main">
 
     <div class="header">
@@ -163,7 +178,7 @@ h1 {
 
   </div>
 
-  <!-- MEDALJTABELL -->
+  <!-- MEDALS -->
   <div class="table-medals">
 
     <div class="medals-header">
@@ -180,7 +195,20 @@ h1 {
 
 <script>
 
-/* FLAGS */
+/* FLAGS MAIN */
+const flagMap = {
+  Sweden: "🇸🇪",
+  Germany: "🇩🇪",
+  Austria: "🇦🇹",
+  Ukraine: "🇺🇦",
+  India: "🇮🇳",
+  "United States": "🇺🇸",
+  Denmark: "🇩🇰",
+  Brazil: "🇧🇷",
+  Brasil: "🇧🇷"
+};
+
+/* FLAGS MEDALS */
 const countryFlagMap = {
   SWEDEN: "🇸🇪",
   BRAZIL: "🇧🇷",
@@ -194,20 +222,7 @@ const countryFlagMap = {
   NETHERLANDS: "🇳🇱"
 };
 
-/* MAIN FLAG MAP */
-const flagMap = {
-  Sweden: "🇸🇪",
-  Germany: "🇩🇪",
-  Austria: "🇦🇹",
-  Ukraine: "🇺🇦",
-  India: "🇮🇳",
-  "United States": "🇺🇸",
-  Denmark: "🇩🇰",
-  Brazil: "🇧🇷",
-  Brasil: "🇧🇷"
-};
-
-/* RENDER MAIN */
+/* MAIN RENDER */
 function render(data) {
 
   const grid = document.getElementById("grid");
@@ -228,11 +243,6 @@ function render(data) {
       r.placering < 0 ? "▼" :
       "◆";
 
-    const placeClass =
-      r.placering > 0 ? "up" :
-      r.placering < 0 ? "down" :
-      "same";
-
     row.className = cls;
 
     row.innerHTML = `
@@ -247,7 +257,7 @@ function render(data) {
   });
 }
 
-/* RENDER MEDALS */
+/* MEDAL RENDER */
 function renderMedals(data) {
 
   const grid = document.getElementById("medalGrid");
@@ -270,9 +280,10 @@ function renderMedals(data) {
 
     grid.appendChild(row);
   });
+
 }
 
-/* LOAD CSV */
+/* LOAD DATA */
 fetch("data.csv")
   .then(res => res.text())
   .then(text => {
