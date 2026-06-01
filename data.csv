@@ -1,27 +1,27 @@
-﻿Land;Namn;Poäng;dagenspoäng;placering
-Sweden;Caroline Knight;5;5;0
-Sweden;Titus Alex;4;4;0
-Sweden;Styrbjorn Drugge;4;4;0
-Sweden;Erik Thorin;4;4;0
-Germany;Springfield 94ers;4;4;0
-Sweden;Björn Rosenqvist;4;4;0
-Sweden;Pernilla Fridh;4;4;0
-Germany;Wolfgang Schneider;4;4;0
-Germany;Lukas Lanzinger;1;1;0
-Sweden;Andree Krantz-Rosenqvist;1;1;0
-Sweden;Andree Krantz-Rosenqvist;1;1;0
-Sweden;Andree Krantz-Rosenqvist;1;1;0
-Sweden;Andree Krantz-Rosenqvist;1;1;0
-Sweden;Andree Krantz-Rosenqvist;1;1;0
-Sweden;Andree Krantz-Rosenqvist;1;1;0
-Sweden;Andree Krantz-Rosenqvist;1;1;0
-Denmark;Jens-Henrik Maeng;1;1;0
-Sweden;Andree Krantz-Rosenqvist;1;1;0
-Ukraine;Oksana Schneider;1;1;0
-Germany;Lucas Mangold;1;1;0
-Sweden;Maria Sand;1;1;0
-Sweden;Lena Ringström;1;1;0
-Sweden;Caroline Åhsberg;1;1;0
-Austria;Markus Huber;1;1;0
-Sweden;Henrik Axelsson;1;1;0
-United States;Eric Ortiz;1;1;0
+﻿Land;Namn;Poäng;dagenspoäng;placering;Gold;Silver;Bronze
+Sweden;Caroline Knight;5;5;0;SPAIN;BRAZIL;NETHERLANDS
+Sweden;Titus Alex;4;4;0;SPAIN;ENGLAND;FRANCE
+Sweden;Styrbjorn Drugge;4;4;0;BRAZIL;SPAIN;ARGENTINA
+Sweden;Erik Thorin;4;4;0;FRANCE;ARGENTINA;SPAIN
+#N/A;Springfield 94ers;4;4;0;ARGENTINA;FRANCE;BRAZIL
+Sweden;Björn Rosenqvist;4;4;0;ARGENTINA;GERMANY;BRAZIL
+Sweden;Pernilla Fridh;4;4;0;FRANCE;PORTUGAL;SPAIN
+Germany;Wolfgang Schneider;4;4;0;BRAZIL;SPAIN;ARGENTINA
+Germany;Lukas Lanzinger;1;1;0;SPAIN;ENGLAND;FRANCE
+Sweden;Andree Krantz-Rosenqvist;1;1;0;BRAZIL;SPAIN;FRANCE
+Sweden;Andree Krantz-Rosenqvist;1;1;0;BRAZIL;SPAIN;FRANCE
+Sweden;Andree Krantz-Rosenqvist;1;1;0;BRAZIL;SPAIN;FRANCE
+Sweden;Andree Krantz-Rosenqvist;1;1;0;BRAZIL;SPAIN;FRANCE
+Sweden;Andree Krantz-Rosenqvist;1;1;0;BRAZIL;SPAIN;FRANCE
+Sweden;Andree Krantz-Rosenqvist;1;1;0;BRAZIL;SPAIN;FRANCE
+Sweden;Andree Krantz-Rosenqvist;1;1;0;BRAZIL;SPAIN;FRANCE
+Denmark;Jens-Henrik Maeng;1;1;0;BRAZIL;SPAIN;FRANCE
+Sweden;Andree Krantz-Rosenqvist;1;1;0;BRAZIL;SPAIN;FRANCE
+Ukraine;Oksana Schneider;1;1;0;ARGENTINA;FRANCE;BRAZIL
+Germany;Lucas Mangold;1;1;0;SPAIN;ARGENTINA;FRANCE
+Sweden;Maria Sand;1;1;0;SWEDEN;PORTUGAL;BRAZIL
+Sweden;Lena Ringström;1;1;0;FRANCE;URUGUAY;SPAIN
+Sweden;Caroline Åhsberg;1;1;0;SPAIN;BRAZIL;FRANCE
+Austria;Markus Huber;1;1;0;FRANCE;PORTUGAL;SPAIN
+Sweden;Henrik Axelsson;1;1;0;PORTUGAL;FRANCE;ENGLAND
+United States;Eric Ortiz;1;1;0;FRANCE;PORTUGAL;SPAIN
