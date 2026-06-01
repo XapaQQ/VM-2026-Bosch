@@ -16,7 +16,6 @@ h1 {
   margin-bottom: 10px;
 }
 
-/* STATUS */
 #statusBox {
   padding: 8px;
   margin-bottom: 12px;
@@ -27,14 +26,24 @@ h1 {
   font-size: 14px;
 }
 
-/* CONTAINER */
-#grid,
-.header {
-  width: 750px;
-  max-width: 95vw;
+/* TVÅ TABELLER BREDVID VARANDRA */
+
+.tables {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
 }
 
-/* GRID */
+.table-main {
+  width: 750px;
+}
+
+.table-medals {
+  width: 240px;
+}
+
+/* HUVUDTABELL */
+
 .header,
 .row {
   display: grid;
@@ -42,7 +51,6 @@ h1 {
   align-items: center;
 }
 
-/* CELLS */
 .header > div,
 .row > div {
   box-sizing: border-box;
@@ -51,7 +59,6 @@ h1 {
   text-align: center;
 }
 
-/* HEADER TEXT WRAP */
 .header > div {
   white-space: normal;
   overflow: visible;
@@ -60,49 +67,84 @@ h1 {
   word-break: break-word;
 }
 
-/* ROW TEXT */
 .row > div {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-/* NAME LEFT */
 .header > div:nth-child(2),
 .row > div:nth-child(2) {
   text-align: left;
 }
 
-/* HEADER */
 .header {
   font-weight: bold;
   background: #f2f2f2;
   border: 1px solid #ddd;
 }
 
-/* ROWS */
 .row {
   border: 1px solid #ddd;
   background: white;
   transition: background 0.15s ease;
 }
 
-/* ZEBRA */
 .row:nth-child(even) {
   background: #f6f6f6;
 }
 
-/* HOVER */
 .row:hover {
   background: #eaf2ff;
 }
 
-/* 🔥 CLEAN TOP 3 SEPARATOR */
 .row:nth-child(3) {
   border-bottom: 2px dashed rgba(0,0,0,0.45);
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
+/* MEDALJTABELL */
+
+.medals-header,
+.medal-row {
+  display: grid;
+  grid-template-columns: 80px 80px 80px;
+  align-items: center;
+}
+
+.medals-header {
+  font-weight: bold;
+  background: #f2f2f2;
+  border: 1px solid #ddd;
+}
+
+.medals-header div,
+.medal-row div {
+  padding: 6px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.medal-row {
+  border: 1px solid #ddd;
+  background: white;
+  transition: background 0.15s ease;
+}
+
+.medal-row:nth-child(even) {
+  background: #f6f6f6;
+}
+
+.medal-row:hover {
+  background: #eaf2ff;
+}
+
+.medal-row:nth-child(3) {
+  border-bottom: 2px dashed rgba(0,0,0,0.45);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
 /* FLAGS */
+
 .flag {
   text-align: left;
   font-size: 28px;
@@ -110,6 +152,7 @@ h1 {
 }
 
 /* TEXT */
+
 .name {
   font-size: 14px;
 }
@@ -122,6 +165,7 @@ h1 {
 }
 
 /* TOP 3 */
+
 .gold,
 .silver,
 .bronze {
@@ -152,6 +196,7 @@ h1 {
 }
 
 /* PLACERING */
+
 .up {
   color: green;
   font-weight: bold;
@@ -178,17 +223,39 @@ h1 {
   ⏳ Laddar senaste uppdatering...
 </div>
 
-<!-- HEADER -->
-<div class="header">
-  <div>Land</div>
-  <div>Namn</div>
-  <div>Dagens Poäng</div>
-  <div>Placering</div>
-  <div>Total Poäng</div>
-</div>
+<div class="tables">
 
-<!-- DATA -->
-<div id="grid"></div>
+  <!-- HUVUDTABELL -->
+
+  <div class="table-main">
+
+    <div class="header">
+      <div>Land</div>
+      <div>Namn</div>
+      <div>Dagens Poäng</div>
+      <div>Placering</div>
+      <div>Total Poäng</div>
+    </div>
+
+    <div id="grid"></div>
+
+  </div>
+
+  <!-- MEDALJTABELL -->
+
+  <div class="table-medals">
+
+    <div class="medals-header">
+      <div>Gold</div>
+      <div>Silver</div>
+      <div>Bronze</div>
+    </div>
+
+    <div id="medalGrid"></div>
+
+  </div>
+
+</div>
 
 <script>
 
@@ -199,8 +266,9 @@ const flagMap = {
   Ukraine: "🇺🇦",
   India: "🇮🇳",
   "United States": "🇺🇸",
+  Denmark: "🇩🇰",
   Brazil: "🇧🇷",
-  Denmark: "🇩🇰"
+  Brasil: "🇧🇷"
 };
 
 function render(data) {
@@ -244,7 +312,27 @@ function render(data) {
   });
 }
 
-/* LOAD CSV */
+function renderMedals(data) {
+
+  const grid = document.getElementById("medalGrid");
+  grid.innerHTML = "";
+
+  data.forEach(() => {
+
+    const row = document.createElement("div");
+    row.className = "medal-row";
+
+    row.innerHTML = `
+      <div></div>
+      <div></div>
+      <div></div>
+    `;
+
+    grid.appendChild(row);
+
+  });
+}
+
 fetch("data.csv")
   .then(res => res.text())
   .then(text => {
@@ -263,7 +351,10 @@ fetch("data.csv")
         namn: c[1],
         poäng: Number(c[2]),
         dagenspoäng: Number(c[3]),
-        placering: Number(c[4])
+        placering: Number(c[4]),
+        gold: c[5] || "",
+        silver: c[6] || "",
+        bronze: c[7] || ""
       };
 
     });
@@ -272,12 +363,34 @@ fetch("data.csv")
 
     render(data);
 
+    const medalGrid = document.getElementById("medalGrid");
+    medalGrid.innerHTML = "";
+
+    data.forEach((r, i) => {
+
+      const row = document.createElement("div");
+      row.className = "medal-row";
+
+      if (i === 2) {
+        row.style.borderBottom = "2px dashed rgba(0,0,0,0.45)";
+        row.style.boxShadow = "0 4px 6px rgba(0,0,0,0.05)";
+      }
+
+      row.innerHTML = `
+        <div>${r.gold}</div>
+        <div>${r.silver}</div>
+        <div>${r.bronze}</div>
+      `;
+
+      medalGrid.appendChild(row);
+
+    });
+
   })
   .catch(err => {
     console.error("Kunde inte läsa CSV:", err);
   });
 
-/* STATUS BOX */
 fetch("https://api.github.com/repos/XapaQQ/VM-2026-Bosch/commits")
   .then(r => r.json())
   .then(data => {
