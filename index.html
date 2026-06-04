@@ -49,10 +49,7 @@ h1 {
   width: 520px;
 }
 
-/* =========================
-   MAIN HEADER + ROWS
-========================= */
-
+/* HEADER + ROWS */
 .header,
 .row {
   display: grid;
@@ -62,43 +59,19 @@ h1 {
 
 .header {
   height: var(--header-height);
-  min-height: var(--header-height);
-  max-height: var(--header-height);
-  box-sizing: border-box;
-  font-weight: bold;
   background: #f2f2f2;
   border: 1px solid #ddd;
-}
-
-.header > div {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 6px 10px;
-  box-sizing: border-box;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-weight: bold;
 }
 
 .row {
   border: 1px solid #ddd;
   background: white;
   height: var(--row-height);
-  min-height: var(--row-height);
-  max-height: var(--row-height);
 }
 
 .row:nth-child(even) {
   background: #f6f6f6;
-}
-
-.row > div {
-  padding: 6px 10px;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  white-space: nowrap;
 }
 
 /* TOP 3 */
@@ -109,30 +82,21 @@ h1 {
 .gold::before {
   content:"";
   position:absolute;
-  left:0;
-  top:0;
-  bottom:0;
-  width:5px;
+  left:0;top:0;bottom:0;width:5px;
   background: gold;
 }
 
 .silver::before {
   content:"";
   position:absolute;
-  left:0;
-  top:0;
-  bottom:0;
-  width:5px;
+  left:0;top:0;bottom:0;width:5px;
   background: silver;
 }
 
 .bronze::before {
   content:"";
   position:absolute;
-  left:0;
-  top:0;
-  bottom:0;
-  width:5px;
+  left:0;top:0;bottom:0;width:5px;
   background: #cd7f32;
 }
 
@@ -141,53 +105,33 @@ h1 {
   font-size: 22px;
 }
 
-/* =========================
-   MEDAL TABLE
-========================= */
-
+/* MEDALS */
 .medals-header,
 .medal-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
 }
 
 .medals-header {
   height: var(--header-height);
-  min-height: var(--header-height);
-  max-height: var(--header-height);
-  box-sizing: border-box;
   font-weight: bold;
   background: #f2f2f2;
   border: 1px solid #ddd;
-}
-
-.medals-header > div {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 6px 10px;
-  box-sizing: border-box;
-  white-space: nowrap;
 }
 
 .medal-row {
   border: 1px solid #ddd;
   background: white;
   height: var(--row-height);
-  min-height: var(--row-height);
-  max-height: var(--row-height);
 }
 
 .medal-row:nth-child(even) {
   background: #f6f6f6;
 }
 
-.medal-row > div {
+.medal-row > div,
+.medals-header > div {
   padding: 6px 10px;
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
 }
 
 /* separators */
@@ -207,7 +151,6 @@ h1 {
 
 <div class="tables">
 
-  <!-- MAIN -->
   <div class="table-main">
 
     <div class="header">
@@ -222,7 +165,6 @@ h1 {
 
   </div>
 
-  <!-- MEDALS -->
   <div class="table-medals">
 
     <div class="medals-header">
@@ -249,10 +191,7 @@ const flagMap = {
   "United States": "🇺🇸",
   Denmark: "🇩🇰",
   Brazil: "🇧🇷",
-  Brasil: "🇧🇷",
-  Turkey: "🇹🇷",
-  Türkiye: "🇹🇷",
-  Turkiye: "🇹🇷"
+  Brasil: "🇧🇷"
 };
 
 const countryFlagMap = {
@@ -265,10 +204,7 @@ const countryFlagMap = {
   GERMANY: "🇩🇪",
   PORTUGAL: "🇵🇹",
   URUGUAY: "🇺🇾",
-  NETHERLANDS: "🇳🇱",
-  TURKEY: "🇹🇷",
-  TÜRKIYE: "🇹🇷",
-  TURKIYE: "🇹🇷"
+  NETHERLANDS: "🇳🇱"
 };
 
 /* MAIN */
@@ -331,10 +267,13 @@ function renderMedals(data) {
   });
 }
 
-/* LOAD */
-fetch("data.csv")
+/* LOAD (FIXED) */
+fetch("data.csv?v=" + Date.now())
   .then(res => res.text())
   .then(text => {
+
+    // remove BOM if present
+    text = text.replace(/^\uFEFF/, '');
 
     const rows = text.trim().split("\n").slice(1);
 
@@ -357,7 +296,6 @@ fetch("data.csv")
 
     render(data);
     renderMedals(data);
-
   });
 
 /* STATUS */
