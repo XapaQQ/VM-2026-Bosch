@@ -74,9 +74,9 @@ h1 {
   background: #f6f6f6;
 }
 
-/* ⭐ DOT SEPARATOR AFTER ROW 4 */
+/* ⭐ DARKER DOTTED SEPARATOR AFTER ROW 4 */
 .row:nth-child(4) {
-  border-bottom: 2px dotted #bbb;
+  border-bottom: 2px dotted #666;
 }
 
 /* TOP 3 */
@@ -130,7 +130,7 @@ h1 {
   align-items: center;
 }
 
-/* MEDALS */
+/* MEDAL TABLE */
 .medals-header,
 .medal-row {
   display: grid;
@@ -144,6 +144,17 @@ h1 {
   border: 1px solid #ddd;
 }
 
+/* CENTERED MEDAL CONTENT */
+.medal-row > div,
+.medals-header > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 6px 10px;
+}
+
 .medal-row {
   border: 1px solid #ddd;
   background: white;
@@ -152,11 +163,6 @@ h1 {
 
 .medal-row:nth-child(even) {
   background: #f6f6f6;
-}
-
-.medal-row > div,
-.medals-header > div {
-  padding: 6px 10px;
 }
 
 .medal-row > div:not(:last-child),
