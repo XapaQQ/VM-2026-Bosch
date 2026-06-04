@@ -82,27 +82,48 @@ h1 {
 .gold::before {
   content:"";
   position:absolute;
-  left:0;top:0;bottom:0;width:5px;
+  left:0;
+  top:0;
+  bottom:0;
+  width:5px;
   background: gold;
 }
 
 .silver::before {
   content:"";
   position:absolute;
-  left:0;top:0;bottom:0;width:5px;
+  left:0;
+  top:0;
+  bottom:0;
+  width:5px;
   background: silver;
 }
 
 .bronze::before {
   content:"";
   position:absolute;
-  left:0;top:0;bottom:0;width:5px;
+  left:0;
+  top:0;
+  bottom:0;
+  width:5px;
   background: #cd7f32;
 }
 
-/* FLAG */
+/* FLAG (UPDATED) */
 .flag {
-  font-size: 22px;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* ensure perfect centering in column */
+.row > div:first-child,
+.header > div:first-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* MEDALS */
@@ -134,7 +155,6 @@ h1 {
   padding: 6px 10px;
 }
 
-/* separators */
 .medal-row > div:not(:last-child),
 .medals-header > div:not(:last-child) {
   border-right: 1px solid #e0e0e0;
@@ -191,7 +211,10 @@ const flagMap = {
   "United States": "🇺🇸",
   Denmark: "🇩🇰",
   Brazil: "🇧🇷",
-  Brasil: "🇧🇷"
+  Brasil: "🇧🇷",
+  Turkey: "🇹🇷",
+  Türkiye: "🇹🇷",
+  Turkiye: "🇹🇷"
 };
 
 const countryFlagMap = {
@@ -267,12 +290,11 @@ function renderMedals(data) {
   });
 }
 
-/* LOAD (FIXED) */
+/* LOAD */
 fetch("data.csv?v=" + Date.now())
   .then(res => res.text())
   .then(text => {
 
-    // remove BOM if present
     text = text.replace(/^\uFEFF/, '');
 
     const rows = text.trim().split("\n").slice(1);
