@@ -1,28 +1,28 @@
 ﻿Land;Namn;Poäng;dagenspoäng;placering;Gold;Silver;Bronze
-United States;Renisa Kokoneshi;63;6;0;FRANCE;ENGLAND;SPAIN
-Sweden;Henrik Axelsson;58;6;1;PORTUGAL;FRANCE;ENGLAND
-Germany;Lucas Mangold;57;4;-1;SPAIN;ARGENTINA;FRANCE
-Brazil;Iver Santos;55;5;0;FRANCE;BRAZIL;PORTUGAL
-Sweden;Styrbjorn Drugge;54;6;3;BRAZIL;SPAIN;ARGENTINA
-Ukraine;Oksana Schneider;54;5;0;ARGENTINA;FRANCE;BRAZIL
-Sweden;Caroline Knight;54;4;-2;SPAIN;BRAZIL;NETHERLANDS
-Germany;Lukas Lanzinger;52;5;3;SPAIN;ENGLAND;FRANCE
-Denmark;Jens-Henrik Maeng;52;4;-2;BRAZIL;SPAIN;FRANCE
-Sweden;Maria Sand;52;5;2;SWEDEN;PORTUGAL;BRAZIL
-Turkey;Afsin Aksu;52;8;4;FRANCE;ARGENTINA;BRAZIL
-Austria;Markus Huber;52;4;-3;FRANCE;PORTUGAL;SPAIN
-Germany;Wolfgang Schneider;51;3;-3;BRAZIL;SPAIN;ARGENTINA
-Sweden;Titus Alex;50;6;0;SPAIN;ENGLAND;FRANCE
-Sweden;Lena Ringström;50;8;7;FRANCE;URUGUAY;SPAIN
-Sweden;Andree Krantz-Rosenqvist;48;5;1;BRAZIL;SPAIN;FRANCE
-Sweden;Caroline Åhsberg;48;5;1;SPAIN;BRAZIL;FRANCE
-Germany;Jan Kruesemann;47;7;7;ARGENTINA;FRANCE;BRAZIL
-Sweden;Pernilla Fridh;47;3;-3;FRANCE;PORTUGAL;SPAIN
-United States;Eric Ortiz;47;4;-1;FRANCE;PORTUGAL;SPAIN
-Germany;Daniel Veit;46;4;-1;FRANCE;MEXICO;PORTUGAL
-Sweden;Carina Hedberg;46;5;2;SPAIN;ARGENTINA;BRAZIL
-Sweden;Björn Rosenqvist;46;4;-2;ARGENTINA;GERMANY;BRAZIL
-Sweden;Ulrika Johansson;46;1;-11;ARGENTINA;FRANCE;BRAZIL
-Sweden;Erik Thorin;44;3;-2;FRANCE;ARGENTINA;SPAIN
-Brazil;Walter Bendheim Neto;39;5;1;BRAZIL;SPAIN;ARGENTINA
-Denmark;Kevin Scott Walters;38;3;-1;ENGLAND;SPAIN;ARGENTINA
+United States;Renisa Kokoneshi;70;7;0;FRANCE;ENGLAND;SPAIN
+Germany;Lucas Mangold;69;12;1;SPAIN;ARGENTINA;FRANCE
+Ukraine;Oksana Schneider;65;11;3;ARGENTINA;FRANCE;BRAZIL
+Brazil;Iver Santos;64;9;0;FRANCE;BRAZIL;PORTUGAL
+Sweden;Henrik Axelsson;64;6;-3;PORTUGAL;FRANCE;ENGLAND
+Germany;Wolfgang Schneider;62;11;7;BRAZIL;SPAIN;ARGENTINA
+Sweden;Styrbjorn Drugge;61;7;-2;BRAZIL;SPAIN;ARGENTINA
+Sweden;Caroline Knight;61;7;-1;SPAIN;BRAZIL;NETHERLANDS
+Turkey;Afsin Aksu;61;9;2;FRANCE;ARGENTINA;BRAZIL
+Sweden;Titus Alex;60;10;4;SPAIN;ENGLAND;FRANCE
+Sweden;Lena Ringström;59;9;4;FRANCE;URUGUAY;SPAIN
+Germany;Lukas Lanzinger;57;5;-4;SPAIN;ENGLAND;FRANCE
+Denmark;Jens-Henrik Maeng;57;5;-4;BRAZIL;SPAIN;FRANCE
+Sweden;Andree Krantz-Rosenqvist;57;9;2;BRAZIL;SPAIN;FRANCE
+Sweden;Maria Sand;57;5;-5;SWEDEN;PORTUGAL;BRAZIL
+Austria;Markus Huber;57;5;-4;FRANCE;PORTUGAL;SPAIN
+Sweden;Caroline Åhsberg;55;7;0;SPAIN;BRAZIL;FRANCE
+Sweden;Carina Hedberg;54;8;4;SPAIN;ARGENTINA;BRAZIL
+United States;Eric Ortiz;54;7;1;FRANCE;PORTUGAL;SPAIN
+Germany;Jan Kruesemann;53;6;-2;ARGENTINA;FRANCE;BRAZIL
+Germany;Daniel Veit;52;6;0;FRANCE;MEXICO;PORTUGAL
+Sweden;Björn Rosenqvist;52;6;1;ARGENTINA;GERMANY;BRAZIL
+Sweden;Pernilla Fridh;52;5;-4;FRANCE;PORTUGAL;SPAIN
+Sweden;Erik Thorin;51;7;1;FRANCE;ARGENTINA;SPAIN
+Sweden;Ulrika Johansson;51;5;-1;ARGENTINA;FRANCE;BRAZIL
+Brazil;Walter Bendheim Neto;47;8;0;BRAZIL;SPAIN;ARGENTINA
+Denmark;Kevin Scott Walters;45;7;0;ENGLAND;SPAIN;ARGENTINA
